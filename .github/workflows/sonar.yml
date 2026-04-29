@@ -15,4 +15,4 @@ jobs:
       - name: SonarQube Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
-          SONAR_TOKEN_BOOKING_RUANGAN: ${{ secrets.SONAR_TOKEN_BOOKING_RUANGAN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BOOKING_RUANGAN }}
