@@ -1,0 +1,41 @@
+name: SonarQube Analysis - Booking Ruangan Kampus
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  sonarcloud:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Ambil kode dari repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 2. Setup Java (wajib untuk SonarScanner)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      # 3. SonarQube Scan
+      - name: SonarQube Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN_BOOKING_RUANGAN }}
+        with:
+          args: >
+            -Dsonar.projectKey=booking-ruangan-kampus
+            -Dsonar.organization=lutfiah-s
+            -Dsonar.host.url=https://sonarcloud.io
+
+      # 4. Info tambahan
+      - name: Finish Message
+        run: echo "SonarQube analysis completed"
